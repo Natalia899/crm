@@ -3,13 +3,13 @@ const path = require('path')
 const app = express()
 const mysql = require('mysql')
 //
-//const api = require('./server/routes/api')
+const api = require('./server/routes/api')
 
 // const con = mysql.createConnection({
 //     host: "localhost",
 //     user: "root",
 //   });
-  
+
 //   con.connect(function(err) {
 //     if (err) throw err;
 //     console.log("Connected!");
@@ -18,7 +18,7 @@ const mysql = require('mysql')
 //       console.log("Database created");
 //     });
 //   });
-  
+
 const sqlConnection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -34,9 +34,6 @@ sqlConnection.connect((err) => {
 })
 
 
-
-
-
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
@@ -48,7 +45,7 @@ app.use(function (req, res, next) {
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-//app.use('/', api)
+app.use('/', api)
 
 const port = 3002
 app.listen(port, function () {
