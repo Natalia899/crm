@@ -29,7 +29,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 function createData(surname, name, country, firstContact, email, sold, owner) {
-  return { surname, name, country, firstContact, email, sold, owner};
+  return { surname, name, country, firstContact, email, sold, owner };
 }
 
 // const rows = props.CRMStores.clients.map()
@@ -42,44 +42,46 @@ const useStyles = makeStyles({
 });
 
 
-const Clients = inject("CRMStores")(observer((props) =>{
+const Clients = inject("CRMStores")(observer((props) => {
   console.log(props.CRMStores.clients[0]);
-useEffect(() => {
-props.CRMStores.getClients()
-}, [Clients])
+  useEffect(() => {
+    props.CRMStores.getClients()
+  }, [props.CRMStores.clients])
+
+  //props.CRMStores.clients.length
 
 
-const rows = props.CRMStores.clients[0].map(c => {
-  return (createData(
-c.last, c.first, c.country, c.date, c.email, c.sold, c.owner))})
+  const rows = props.CRMStores.clients.length && props.CRMStores.clients[0].map(c => {
+    return (createData(
+      c.last, c.first, c.country, c.date, c.email, c.sold, c.owner))
+  })
 
-
-const classes = useStyles();
+  rows.length && console.log(rows)
+  const classes = useStyles();
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell align="right">Surname</StyledTableCell>
-            <StyledTableCell>Name</StyledTableCell>
-            <StyledTableCell align="right">Country</StyledTableCell>
-            <StyledTableCell align="right">First Contact</StyledTableCell>
-            <StyledTableCell align="right">Email</StyledTableCell>
-            <StyledTableCell align="right">Sold</StyledTableCell>
-            <StyledTableCell align="right">Owner</StyledTableCell>
+            <StyledTableCell align="center">Surname</StyledTableCell>
+            <StyledTableCell align="center">Name</StyledTableCell>
+            <StyledTableCell align="center">Country</StyledTableCell>
+            <StyledTableCell align="center">First Contact</StyledTableCell>
+            <StyledTableCell align="center">Email</StyledTableCell>
+            <StyledTableCell align="center">Sold</StyledTableCell>
+            <StyledTableCell align="center">Owner</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.surname}>
-              <StyledTableCell component="th" scope="row">
-                {row.name}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.country}</StyledTableCell>
-              <StyledTableCell align="right">{row.firstContact}</StyledTableCell>
-              <StyledTableCell align="right">{row.email}</StyledTableCell>
-              <StyledTableCell align="right">{row.sold}</StyledTableCell>
-              <StyledTableCell align="right">{row.owner}</StyledTableCell>
+          {rows.length && rows.map((row) => (
+            <StyledTableRow >
+              <StyledTableCell align="left">{row.surname}</StyledTableCell>
+              <StyledTableCell align="left">{row.name}</StyledTableCell>
+              <StyledTableCell align="left">{row.country}</StyledTableCell>
+              <StyledTableCell align="left">{row.firstContact}</StyledTableCell>
+              <StyledTableCell align="left">{row.email}</StyledTableCell>
+              <StyledTableCell align="left">{row.sold}</StyledTableCell>
+              <StyledTableCell align="left">{row.owner}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
@@ -89,5 +91,3 @@ const classes = useStyles();
 }))
 
 export default Clients
-
-//problem with loading the props
