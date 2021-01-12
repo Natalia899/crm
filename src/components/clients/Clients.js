@@ -54,6 +54,8 @@ const Clients = inject("CRMStores")(observer((props) => {
   rows.length && console.log(rows)
   const classes = useStyles();
   return (
+    <>
+    <input className='findClient' placeholder='name'></input>
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
@@ -82,6 +84,7 @@ const Clients = inject("CRMStores")(observer((props) => {
         </TableBody>
       </Table>
     </TableContainer>
+    </>
   )
 }))
 
