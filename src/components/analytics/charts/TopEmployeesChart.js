@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react'
 
 
 
-const ClientAcquisition = inject("CRMStores", "UpdateStores")(observer((props) => {
+const TopEmployeesChart = inject("CRMStores", "UpdateStores")(observer((props) => {
     return (
         <div>
         chart
@@ -11,4 +11,4 @@ const ClientAcquisition = inject("CRMStores", "UpdateStores")(observer((props) =
     )
 }))
 
-export default ClientAcquisition;
+export default TopEmployeesChart;

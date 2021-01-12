@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react';
+import { observer, inject } from 'mobx-react'
+import TopEmployeesChart from './charts/TopEmployeesChart'
+//import {ClientAcquisition, SalesFromChart, salesByCountries, TopEmployeesChart} from './charts';
 
 
-
-export default function Analytics() {
-
-  return (
-    <div>
-     Analytics
-    </div>
-  )
-}
+const Analytics = inject("CRMStores", "UpdateStores")(observer((props) => {
+    return (
+        <>
+            <TopEmployeesChart />
+           
+        </>
+    )
+}))
+export default Analytics;

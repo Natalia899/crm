@@ -6,6 +6,7 @@ export class CRMStores {
     constructor() {
         this.clients = []
         this.owners = []
+        this.filterInput = ''
 
         makeObservable(this, {
             clients: observable,
@@ -33,6 +34,9 @@ export class CRMStores {
         this.getClients()
     }
 
-    
+    filterClients (event) {
+       let tempList = [...this.clients]
+       tempList.list.filter
+    }
 }
 

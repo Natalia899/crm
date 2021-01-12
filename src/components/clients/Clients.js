@@ -51,7 +51,6 @@ const Clients = inject("CRMStores")(observer((props) => {
       c.last, c.first, c.country, c.date, c.email, c.sold, c.owner))
   })
 
-  rows.length && console.log(rows)
   const classes = useStyles();
   return (
     <>
