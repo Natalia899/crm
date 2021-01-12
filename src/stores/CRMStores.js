@@ -11,7 +11,8 @@ export class CRMStores {
             clients: observable,
             owners: observable,
             getClients: action,
-            getOwners: action
+            getOwners: action,
+            addClient: action
         })
     }
 
@@ -25,6 +26,11 @@ export class CRMStores {
     let data = await axios.get("http://localhost:3002/owners")
     console.log(data.data[0]);
      this.owners = data.data[0]
+    }
+
+   async addClient(newClient) {
+        await axios.post('http://localhost:4200/client', newClient)
+        this.getClients()
     }
 
     
