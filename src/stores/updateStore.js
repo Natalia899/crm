@@ -9,6 +9,7 @@ export class UpdateStores {
             this.email = ''
             this.date = ''
             this.country = ''
+            this.emailType = ''
             this.sold = false
 
             makeObservable(this, {
@@ -22,14 +23,20 @@ export class UpdateStores {
                 handleInput: action
             })
     }
-    // handleInput = ({ target }) => {
-    //     console.log(target.value)
-    //     this[target.name] = target.value
-    // }
-
-    handleInput = ({ target }) =>{
-        this[target.name] = target.value
-        console.log(this.first, this.country)
+    handleInput = ({ target }) => {
+        if (target.name === 'date') {
+            var array = (target.value).toString().split(/-/g);
+            array.push(array.shift());
+            this[target.name] = array.join('/')
+        } else {
+            this[target.name] = target.value
+            console.log(this.last);
+        }
     }
+
+    // handleInput = ( {target} ) =>{
+    //     this[target.name] = target.value
+    //     console.log(this.owner);
+    // }
 
 }

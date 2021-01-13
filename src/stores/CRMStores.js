@@ -6,14 +6,19 @@ export class CRMStores {
     constructor() {
         this.clients = []
         this.owners = []
-        this.filterInput = ''
+        this.emailTypes = []
+        
 
         makeObservable(this, {
             clients: observable,
             owners: observable,
+            emailTypes: observable,
             getClients: action,
             getOwners: action,
-            addClient: action
+            addClient: action,
+            getEmailTypes: action,
+            addClient: action,
+            updateEmailType: action
         })
     }
 
@@ -29,14 +34,35 @@ export class CRMStores {
      this.owners = data.data[0]
     }
 
+    async getEmailTypes() {
+    let data = await axios.get("http://localhost:3002/email")
+    console.log(data.data[0]);
+     this.emailTypes = data.data[0]
+    }
+
    async addClient(newClient) {
-        await axios.post('http://localhost:4200/client', newClient)
+        await axios.post('http://localhost:3002/client/id', newClient)
+        this.getClients()
+    }
+    async updateEmailType(name, newType) {
+        await axios.put(`http://localhost:3002/client/${name}`, newType)
         this.getClients()
     }
 
-    filterClients (event) {
-       let tempList = [...this.clients]
-       tempList.list.filter
+    async updateOwner(name, newOwner) {
+        await axios.put(`http://localhost:3002/client/${name}`, newOwner)
+        this.getClients()
     }
+
+    async updateSold( newValue) {
+        await axios.put(`http://localhost:3002/client/${this.last}`, newValue)
+        this.getClients()
+    }
+
+
+    // filterClients (event) {
+    //    let tempList = [...this.clients]
+    //    tempList.list.filter
+    // }
 }
 

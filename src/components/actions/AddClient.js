@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 
 const AddClient = inject("CRMStores", "UpdateStores")(observer((props) => {
 
+
     const countries = ["Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola",
         "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba",
         "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados",
@@ -15,24 +16,34 @@ const AddClient = inject("CRMStores", "UpdateStores")(observer((props) => {
         props.CRMStores.getOwners()
         console.log(props.CRMStores.owners)
     }, [props.CRMStores])
+
     let handleInput = props.UpdateStores.handleInput;
-   
+    let data = props.UpdateStores
+
+    const addClient = () => {
+        console.log(data.owner);
+        let newClient = {
+            last: data.last, first: data.first, email: data.email,
+            sold: 0, date: data.date, owner: data.owner, country: data.country
+        }
+        props.CRMStores.addClient(newClient)
+    }
     return (
         <div className='addClientInputs'>
             <input name={'first'} type={'text'} onChange={handleInput} placeholder={'First Name'} required />
             <input name={'last'} type={'text'} onChange={handleInput} placeholder={'Last Name'} required />
             <input name={'email'} type={'text'} onChange={handleInput} placeholder={'Email'} required />
             <input name={'date'} type={'date'} onChange={handleInput} placeholder={'Date'} required />
-            <select className="dropdown">
+            <select onChange={handleInput} name={'country'} className="dropdown">
                 <option selected hidden>Select Country</option>
-                {countries.map(country => <option name='country' onChange={handleInput} >{country}</option>)}
+                {countries.map(country => <option value={country} >{country}</option>)}
             </select>
-            <select className="dropdown" >
+            <select name={'owner'} onChange={handleInput} className="dropdown" >
                 <option selected hidden>Select Owner</option>
                 {props.CRMStores.owners && props.CRMStores.owners
-                    .map(owner => <option name='owner' onChange={props.UpdateStores.handleInput}>{owner.owner}</option>)}
+                    .map(owner => <option value={owner.owner} >{owner.owner}</option>)}
             </select>
-            <Button variant="contained">Add</Button>
+            <Button variant="contained" onClick={addClient}>Add new client</Button>
         </div>
     )
 }

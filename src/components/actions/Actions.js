@@ -8,6 +8,7 @@ const Actions = inject("CRMStores", "UpdateStores")(observer((props) => {
   return (
     <div className='actionsContainer'>
       <AddClient />
+      <UpdateClient />
       {/* <AddClient name={'first'} type={'text'} placeholder={'First Name'} />
       <AddClient name={'last'} type={'text'} placeholder={'Last Name'} />
       <AddClient name={'email'} type={'text'} placeholder={'Email'} />
