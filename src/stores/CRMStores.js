@@ -25,7 +25,7 @@ export class CRMStores {
     async getClients() {
     let data = await axios.get("http://localhost:3002/clients")
     console.log(data.data[0]);
-    this.clients.push(data.data[0])
+    this.clients=data.data[0]
     }
 
     async getOwners(){
@@ -54,8 +54,8 @@ export class CRMStores {
         this.getClients()
     }
 
-    async updateSold( newValue) {
-        await axios.put(`http://localhost:3002/client/${this.last}`, newValue)
+    async updateSold(name, newValue) {
+        await axios.put(`http://localhost:3002/client/${name}`, newValue)
         this.getClients()
     }
 

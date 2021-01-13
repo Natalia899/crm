@@ -44,24 +44,22 @@ const Clients = inject("CRMStores")(observer((props) => {
   const [input, setInput] = useState('')
 
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     let e = await fetchExpenses(month)
-  //     console.log(e)
-  //     setExpenses(e)
-  //   }
-  //   fetchData()
-  // }, [month])
-
   useEffect(() => {
-    // const fetchData = async ()
-    props.CRMStores.getClients()
+    const fetchData = async () => {
+      await props.CRMStores.getClients()
+      setRelevantClients(props.CRMStores.clients)
+      console.log(relevantClients)
+    }
+    fetchData()
   }, [])
 
+
+
+
+// not working on input delete
+
   useEffect(() => {
-    let tempList = []
-    console.log(tempList);
-    tempList.filter(c => {
+    let tempList = relevantClients.filter(c => {
       console.log(c)
       return c.last.toLowerCase().includes(input.toLowerCase())
     })
@@ -71,13 +69,17 @@ const Clients = inject("CRMStores")(observer((props) => {
 
   const handleChange = (event) => setInput(event.target.value)
 
+
   //props.CRMStores.clients.length
 
-
-  const rows = props.CRMStores.clients.length && props.CRMStores.clients[0].map(c => {
+  const rows = relevantClients && relevantClients.map(c => {
     return (createData(
       c.last, c.first, c.country, c.date, c.email, c.sold, c.owner))
   })
+  // const rows = props.CRMStores.clients.length && props.CRMStores.clients.map(c => {
+  //   return (createData(
+  //     c.last, c.first, c.country, c.date, c.email, c.sold, c.owner))
+  // })
 
   const classes = useStyles();
   return (
