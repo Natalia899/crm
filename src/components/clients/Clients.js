@@ -56,16 +56,14 @@ const Clients = inject("CRMStores")(observer((props) => {
 
 
 
-// not working on input delete
+  // not working on input delete
 
   useEffect(() => {
-    let tempList = relevantClients.filter(c => {
-      console.log(c)
+    let tempList = props.CRMStores.clients.filter(c => {
       return c.last.toLowerCase().includes(input.toLowerCase())
     })
     setRelevantClients(tempList)
-    console.log(relevantClients)
-  }, [input])
+  }, [input.length])
 
   const handleChange = (event) => setInput(event.target.value)
 
