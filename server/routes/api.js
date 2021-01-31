@@ -27,9 +27,9 @@ router.get('/email', async (req, res) => {
     let query = `SELECT * FROM email_type`
     let result = await sequelize.query(query)
     res.send(result)
-})
+});
 
-router.get('/hottestCountry', async (req, res)=> {
+router.get('/hottestCountry', async (req, res) => {
     const query = `SELECT country AS category, COUNT(*) AS sum
     FROM client as c, country as co
     WHERE c.country_id = co.id
@@ -37,7 +37,45 @@ router.get('/hottestCountry', async (req, res)=> {
     ORDER BY COUNT(*) DESC;`
     const country = (await sequelize.query(query))[0][0]
     res.send(country)
+});
+
+router.get('/chartsData', async (req, res) => {
+    const ownerQuery = `SELECT owner AS category, COUNT(*) AS sum
+      FROM  client AS c, owner AS o 
+      WHERE c.owner_id = o.id
+      AND c.sold IS TRUE
+      GROUP BY owner
+      ORDER BY COUNT(*) DESC;`
+    const countryQuery = `SELECT country AS category, COUNT(*) AS sum
+      FROM client as c, country as co
+      WHERE c.country_id = co.id
+      GROUP BY country;`
+    const emailQuery = `SELECT email_type AS category, COUNT(*) AS sum
+      FROM client as c, email_type as et
+      WHERE c.email_type_id = et.id 
+      AND email_type IS NOT NULL
+      GROUP BY email_type
+      ORDER BY COUNT(*) DESC;`
+    const monthQuery = `SELECT SUBSTRING_INDEX(date, '/', 1) AS category , COUNT(*) AS sum
+      FROM client
+      GROUP BY SUBSTRING_INDEX(date, '/', 1);`
+    const owners = (await sequelize.query(ownerQuery))[0].slice(0, 3)
+    const countries = (await sequelize.query(countryQuery))[0]
+    res.send({owners, countries})
 })
+
+// router.get('./chartsData', async (req, res)=> {
+//     console.log('are u here??????/');
+//     const ownerQuery = `SELECT owner AS category, COUNT(*) AS sum
+//      FROM  client AS c, owner AS o 
+//      WHERE c.owner_id = o.id
+//      AND c.sold IS TRUE
+//      GROUP BY owner
+//      ORDER BY COUNT(*) DESC;`
+//      const owners = await sequelize.query(ownerQuery)[0]
+//      res.send(owners)
+// })
+
 
 const findId = async (table, name, value) => {
     let query = `SELECT id FROM ${table} WHERE ${name} = '${value}'`;

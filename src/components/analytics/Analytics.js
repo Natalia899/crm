@@ -8,8 +8,8 @@ import Budges from './badges/Badges'
 const Analytics = inject("CRMStores", "UpdateStores")(observer((props) => {
     return (
         <>
-            <TopEmployeesChart />
            <Budges />
+            <TopEmployeesChart />
         </>
     )
 }))
