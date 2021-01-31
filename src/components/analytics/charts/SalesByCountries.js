@@ -1,14 +1,22 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 
-
-const salesByCountries = inject("CRMStores", "UpdateStores")(observer((props) => {
+const SalesByCountries = inject("CRMStores", "UpdateStores")(observer((props) => {
+console.log('hiii');
     return (
-        <div>
-        chart
+        <div className='countriesChart'> <h5>Sales By Countries </h5>
+        <BarChart width={530} height={250} data={props.CRMStores.chartsData.countries}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="category" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="sales" fill="#82ca9d" />
+        </BarChart>
         </div>
     )
 }))
 
-export default salesByCountries;
+export default SalesByCountries;

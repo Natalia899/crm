@@ -40,13 +40,13 @@ router.get('/hottestCountry', async (req, res) => {
 });
 
 router.get('/chartsData', async (req, res) => {
-    const ownerQuery = `SELECT owner AS category, COUNT(*) AS sum
+    const ownerQuery = `SELECT owner AS category, COUNT(*) AS sales
       FROM  client AS c, owner AS o 
       WHERE c.owner_id = o.id
       AND c.sold IS TRUE
       GROUP BY owner
       ORDER BY COUNT(*) DESC;`
-    const countryQuery = `SELECT country AS category, COUNT(*) AS sum
+    const countryQuery = `SELECT country AS category, COUNT(*) AS sales
       FROM client as c, country as co
       WHERE c.country_id = co.id
       GROUP BY country;`
@@ -56,25 +56,18 @@ router.get('/chartsData', async (req, res) => {
       AND email_type IS NOT NULL
       GROUP BY email_type
       ORDER BY COUNT(*) DESC;`
-    const monthQuery = `SELECT SUBSTRING_INDEX(date, '/', 1) AS category , COUNT(*) AS sum
-      FROM client
-      GROUP BY SUBSTRING_INDEX(date, '/', 1);`
+    const monthQuery = `SELECT COUNT(date) as counted_leads,
+     date as count_date 
+     FROM client 
+     GROUP BY  date;`
     const owners = (await sequelize.query(ownerQuery))[0].slice(0, 3)
     const countries = (await sequelize.query(countryQuery))[0]
-    res.send({owners, countries})
-})
+    const lastMonth = (await sequelize.query(monthQuery))[0]
+        .filter(d => new Date(d.count_date) > new Date(new Date().setDate(new Date().getDate() - 30)))
 
-// router.get('./chartsData', async (req, res)=> {
-//     console.log('are u here??????/');
-//     const ownerQuery = `SELECT owner AS category, COUNT(*) AS sum
-//      FROM  client AS c, owner AS o 
-//      WHERE c.owner_id = o.id
-//      AND c.sold IS TRUE
-//      GROUP BY owner
-//      ORDER BY COUNT(*) DESC;`
-//      const owners = await sequelize.query(ownerQuery)[0]
-//      res.send(owners)
-// })
+    res.send({ owners, countries, lastMonth })
+
+})
 
 
 const findId = async (table, name, value) => {

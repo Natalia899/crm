@@ -7,6 +7,7 @@ export class CRMStores {
         this.clients = []
         this.owners = []
         this.emailTypes = []
+        this.chartsData = []
 
 
 
@@ -24,7 +25,9 @@ export class CRMStores {
             newClients: computed,
             emailsSent: computed,
             outstandingClients: computed,
-            getBudgetsData: action
+            getBudgetsData: action,
+            getChartsData: action,
+            chartsData: observable
 
         })
     }
@@ -90,6 +93,12 @@ export class CRMStores {
         const hottestCountry = { value: data, title: 'Hottest Country', icon: 'faGlobeAmericas', color: 'yellow' }
         const budgetsData = [newClients, emailsSent, outStandingClients, hottestCountry]
         return budgetsData
+    }
+
+    async getChartsData() {
+        let data = await axios.get("http://localhost:3002/chartsData")
+        console.log(data.data);
+        this.chartsData = data.data
     }
    
 }

@@ -8,6 +8,7 @@ const Budges = inject("CRMStores", "UpdateStores")(observer((props) => {
         const getData = async () => {
             await props.CRMStores.getClients()
             let data = await props.CRMStores.getBudgetsData()
+            await props.CRMStores.getChartsData()
             setBudges(data)
         }
         getData()
