@@ -7,7 +7,8 @@ export class CRMStores {
         this.clients = []
         this.owners = []
         this.emailTypes = []
-        
+
+
 
         makeObservable(this, {
             clients: observable,
@@ -15,33 +16,41 @@ export class CRMStores {
             emailTypes: observable,
             getClients: action,
             getOwners: action,
+            getHottestCountry: action,
             addClient: action,
             getEmailTypes: action,
             addClient: action,
-            updateEmailType: action
+            updateEmailType: action,
+            newClients: computed,
+            emailsSent: computed,
+            outstandingClients: computed,
+            getBudgetsData: action
+
         })
     }
 
     async getClients() {
-    let data = await axios.get("http://localhost:3002/clients")
-    console.log(data.data[0]);
-    this.clients=data.data[0]
+        let data = await axios.get("http://localhost:3002/clients")
+        this.clients = data.data[0]
     }
 
-    async getOwners(){
-    let data = await axios.get("http://localhost:3002/owners")
-    console.log(data.data[0]);
-     this.owners = data.data[0]
+    async getOwners() {
+        let data = await axios.get("http://localhost:3002/owners")
+        this.owners = data.data[0]
     }
 
     async getEmailTypes() {
-    let data = await axios.get("http://localhost:3002/email")
-    console.log(data.data[0]);
-     this.emailTypes = data.data[0]
+        let data = await axios.get("http://localhost:3002/email")
+        this.emailTypes = data.data[0]
     }
 
-   async addClient(newClient) {
-        await axios.post('http://localhost:3002/client/id', newClient)
+    async getHottestCountry() {
+        let data = await axios.get("http://localhost:3002/hottestCountry")
+        return data.data.category
+    }
+
+    async addClient(newClient) {
+        await axios.post('http://localhost:3002/client', newClient)
         this.getClients()
     }
     async updateEmailType(name, newType) {
@@ -59,10 +68,29 @@ export class CRMStores {
         this.getClients()
     }
 
+    get newClients() {
+        const currentDate = new Date().toLocaleDateString()
+        const newClientsList = this.clients.filter(c => c.date.slice(1)[0] == currentDate[0] && c.date.slice(6) == currentDate.slice(5))
+        return newClientsList.length
+    }
 
-    // filterClients (event) {
-    //    let tempList = [...this.clients]
-    //    tempList.list.filter
-    // }
+    get emailsSent() {
+        return this.clients.filter(c => c.email_type !== null).length
+    }
+
+    get outstandingClients() {
+        return this.clients.filter(c => c.sold == 0).length
+    }
+
+    async getBudgetsData() {
+        let data = await this.getHottestCountry()
+        const newClients = { value: this.newClients, title: 'New Clients this Month', icon: 'faChartLine', color: 'green' }
+        const emailsSent = { value: this.emailsSent, title: 'Emails Sent', icon: 'faEnvelope', color: 'blue' }
+        const outStandingClients = { value: this.outstandingClients, title: 'Outstanding Clients', icon: 'faUserCircle', color: 'red' }
+        const hottestCountry = { value: data, title: 'Hottest Country', icon: 'faGlobeAmericas', color: 'yellow' }
+        const budgetsData = [newClients, emailsSent, outStandingClients, hottestCountry]
+        return budgetsData
+    }
+   
 }
 

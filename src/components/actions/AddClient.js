@@ -24,7 +24,7 @@ const AddClient = inject("CRMStores", "UpdateStores")(observer((props) => {
         console.log(data.owner);
         let newClient = {
             last: data.last, first: data.first, email: data.email,
-            sold: 0, date: data.date, owner: data.owner, country: data.country
+            sold: 0, date: data.date, owner: data.owner, country: data.country, email_type: null
         }
         props.CRMStores.addClient(newClient)
     }

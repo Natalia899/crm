@@ -12,9 +12,10 @@ client.country_id = country.id AND
 client.owner_id = owner.id
 ORDER BY last`;
     let result = await sequelize.query(query)
-    console.log(result);
+    console.log(result.length)
     res.send(result)
 })
+
 
 router.get('/owners', async (req, res) => {
     let query = `SELECT * FROM owner ORDER BY owner`
@@ -28,6 +29,16 @@ router.get('/email', async (req, res) => {
     res.send(result)
 })
 
+router.get('/hottestCountry', async (req, res)=> {
+    const query = `SELECT country AS category, COUNT(*) AS sum
+    FROM client as c, country as co
+    WHERE c.country_id = co.id
+    GROUP BY country
+    ORDER BY COUNT(*) DESC;`
+    const country = (await sequelize.query(query))[0][0]
+    res.send(country)
+})
+
 const findId = async (table, name, value) => {
     let query = `SELECT id FROM ${table} WHERE ${name} = '${value}'`;
     let result = await sequelize.query(query)
@@ -37,28 +48,12 @@ const findId = async (table, name, value) => {
 
 //findId('country', 'country', 'Ukraine')
 
-// router.post('/client', async (req, res) => {
-//     console.log(req.body)
-//     const { last, first, email, sold, date, email_type, owner, country } = req.body
-//     let emailTypeId = email_type !== null ?
-//         await findId('email_type', 'email_type', email_type) :
-//         null
-//     let ownerId = await findId('owner', 'owner', owner)
-//     let countryId = await findId('country', 'country', country)
-//     let query = `INSERT INTO client VALUES (null, '${last}', '${first}', '${email}', 
-//     ${sold}, '${date}', ${emailTypeId}, ${ownerId}, ${countryId})`;
-//     let result = await sequelize.query(query)
-//     console.log(result);
-//     res.send(result)
-// })
-
-
 router.post('/client', async (req, res) => {
     console.log(req.body)
     const { last, first, email, sold, date, email_type, owner, country } = req.body
-    let emailTypeId = email_type !== null ?
-        await findId('email_type', 'email_type', 'A') :
-        await findId('email_type', 'email_type', 'A')
+    let emailTypeId = email_type == null ?
+        null :
+        await findId('email_type', 'email_type', email_type)
     let ownerId = await findId('owner', 'owner', owner)
     let countryId = await findId('country', 'country', country)
     let query = `INSERT INTO client VALUES (null, '${last}', '${first}', '${email}', 
@@ -67,6 +62,22 @@ router.post('/client', async (req, res) => {
     console.log(result);
     res.send(result)
 })
+
+
+// router.post('/client', async (req, res) => {
+//     console.log(req.body)
+//     const { last, first, email, sold, date, email_type, owner, country } = req.body
+//     let emailTypeId = email_type !== null ?
+//         await findId('email_type', 'email_type', 'A') :
+//         await findId('email_type', 'email_type', 'A')
+//     let ownerId = await findId('owner', 'owner', owner)
+//     let countryId = await findId('country', 'country', country)
+//     let query = `INSERT INTO client VALUES (null, '${last}', '${first}', '${email}', 
+//     ${sold}, '${date}', ${emailTypeId}, ${ownerId}, ${countryId})`;
+//     let result = await sequelize.query(query)
+//     console.log(result);
+//     res.send(result)
+// })
 
 router.put('/client/:name', async function (req, res) {
     const { name } = req.params
