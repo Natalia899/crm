@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 
-const SalesByCountries = inject("CRMStores", "UpdateStores")(observer((props) => {
+const SalesByCountries = inject("CRMStores")(observer((props) => {
 console.log('hiii');
     return (
         <div className='chart'> <h5>Sales By Countries </h5>

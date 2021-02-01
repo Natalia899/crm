@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { observer, inject } from 'mobx-react'
 import Budge from './Badge'
 
-const Budges = inject("CRMStores", "UpdateStores")(observer((props) => {
+const Budges = inject("CRMStores")(observer((props) => {
     const [budges, setBudges] = useState([])
     useEffect(() => {
         const getData = async () => {

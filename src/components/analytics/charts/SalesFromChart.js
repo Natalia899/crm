@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 
-const SalesFromChart = inject("CRMStores", "UpdateStores")(observer((props) => {
+const SalesFromChart = inject("CRMStores")(observer((props) => {
 
     // var getDates = function(startDate, endDate) {
     //     var dates = [],
@@ -38,7 +38,6 @@ const SalesFromChart = inject("CRMStores", "UpdateStores")(observer((props) => {
           <Tooltip />
           <Legend />
           <Line type="monotone" dataKey="counted_leads" stroke="#8884d8" activeDot={{ r: 8 }} />
-          {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
         </LineChart>
         </div>
       );

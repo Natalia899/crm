@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 
-const TopEmployeesChart = inject("CRMStores", "UpdateStores")(observer((props) => {
+const TopEmployeesChart = inject("CRMStores")(observer((props) => {
 
     return (
         <div className='chart'> <h5>Top Employees </h5>

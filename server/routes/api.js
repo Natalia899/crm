@@ -81,22 +81,6 @@ router.post('/client', async (req, res) => {
     res.send(result)
 })
 
-
-// router.post('/client', async (req, res) => {
-//     console.log(req.body)
-//     const { last, first, email, sold, date, email_type, owner, country } = req.body
-//     let emailTypeId = email_type !== null ?
-//         await findId('email_type', 'email_type', 'A') :
-//         await findId('email_type', 'email_type', 'A')
-//     let ownerId = await findId('owner', 'owner', owner)
-//     let countryId = await findId('country', 'country', country)
-//     let query = `INSERT INTO client VALUES (null, '${last}', '${first}', '${email}', 
-//     ${sold}, '${date}', ${emailTypeId}, ${ownerId}, ${countryId})`;
-//     let result = await sequelize.query(query)
-//     console.log(result);
-//     res.send(result)
-// })
-
 router.put('/client/:name', async function (req, res) {
     const { name } = req.params
     let { tableName, newValue } = req.body

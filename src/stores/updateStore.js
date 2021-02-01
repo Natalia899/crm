@@ -1,6 +1,5 @@
 import { observable, action, makeObservable } from 'mobx'
 
-
 export class UpdateStores {
     constructor() {
             this.last = ''
