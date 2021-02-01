@@ -29,21 +29,21 @@ const AddClient = inject("CRMStores", "UpdateStores")(observer((props) => {
         props.CRMStores.addClient(newClient)
     }
     return (
-        <div className='addClientInputs'>
+        <div className='inputsContainer'> <h5>Add New Client:</h5>
             <input name={'first'} type={'text'} onChange={handleInput} placeholder={'First Name'} required />
             <input name={'last'} type={'text'} onChange={handleInput} placeholder={'Last Name'} required />
             <input name={'email'} type={'text'} onChange={handleInput} placeholder={'Email'} required />
             <input name={'date'} type={'date'} onChange={handleInput} placeholder={'Date'} required />
-            <select onChange={handleInput} name={'country'} className="dropdown">
+            <div className='y'><select onChange={handleInput} name={'country'} className="dropdown">
                 <option selected hidden>Select Country</option>
                 {countries.map(country => <option value={country} >{country}</option>)}
-            </select>
-            <select name={'owner'} onChange={handleInput} className="dropdown" >
+            </select></div>
+            <div className='y'> <select name={'owner'} onChange={handleInput} className="dropdown" >
                 <option selected hidden>Select Owner</option>
                 {props.CRMStores.owners && props.CRMStores.owners
                     .map(owner => <option value={owner.owner} >{owner.owner}</option>)}
-            </select>
-            <Button variant="contained" onClick={addClient}>Add new client</Button>
+            </select></div>
+            <div className='y'><Button variant="contained" onClick={addClient}>Add new client</Button></div>
         </div>
     )
 }

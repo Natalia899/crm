@@ -6,7 +6,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'rec
 const TopEmployeesChart = inject("CRMStores", "UpdateStores")(observer((props) => {
 
     return (
-        <div className='employeesChart'> <h5>Top Employees </h5>
+        <div className='chart'> <h5>Top Employees </h5>
         <BarChart width={530} height={250} data={props.CRMStores.chartsData.owners}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="category" />

@@ -4,7 +4,6 @@ const mysql = require('mysql')
 const Sequelize = require('sequelize')
 const sequelize = new Sequelize('mysql://root:@localhost/sql_crm')
 
-
 router.get('/clients', async (req, res) => {
     let query = `SELECT * FROM client, country, owner, email_type
 WHERE client.email_type_id = email_type.id AND
@@ -12,10 +11,8 @@ client.country_id = country.id AND
 client.owner_id = owner.id
 ORDER BY last`;
     let result = await sequelize.query(query)
-    console.log(result.length)
     res.send(result)
 })
-
 
 router.get('/owners', async (req, res) => {
     let query = `SELECT * FROM owner ORDER BY owner`
@@ -39,6 +36,7 @@ router.get('/hottestCountry', async (req, res) => {
     res.send(country)
 });
 
+
 router.get('/chartsData', async (req, res) => {
     const ownerQuery = `SELECT owner AS category, COUNT(*) AS sales
       FROM  client AS c, owner AS o 
@@ -50,12 +48,6 @@ router.get('/chartsData', async (req, res) => {
       FROM client as c, country as co
       WHERE c.country_id = co.id
       GROUP BY country;`
-    const emailQuery = `SELECT email_type AS category, COUNT(*) AS sum
-      FROM client as c, email_type as et
-      WHERE c.email_type_id = et.id 
-      AND email_type IS NOT NULL
-      GROUP BY email_type
-      ORDER BY COUNT(*) DESC;`
     const monthQuery = `SELECT COUNT(date) as counted_leads,
      date as count_date 
      FROM client 
@@ -64,11 +56,8 @@ router.get('/chartsData', async (req, res) => {
     const countries = (await sequelize.query(countryQuery))[0]
     const lastMonth = (await sequelize.query(monthQuery))[0]
         .filter(d => new Date(d.count_date) > new Date(new Date().setDate(new Date().getDate() - 30)))
-
     res.send({ owners, countries, lastMonth })
-
 })
-
 
 const findId = async (table, name, value) => {
     let query = `SELECT id FROM ${table} WHERE ${name} = '${value}'`;
@@ -76,8 +65,6 @@ const findId = async (table, name, value) => {
     console.log(result[0][0].id);
     return (result[0][0].id)
 }
-
-//findId('country', 'country', 'Ukraine')
 
 router.post('/client', async (req, res) => {
     console.log(req.body)
@@ -133,7 +120,6 @@ router.put('/client/:name', async function (req, res) {
         console.log(result)
         res.send(result)
     }
-
 })
 
 router.delete('/client/:id', async (req, res) => {

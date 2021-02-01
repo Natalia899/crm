@@ -1,4 +1,4 @@
-import { observable, computed, action, makeObservable } from 'mobx'
+import { observable, action, makeObservable } from 'mobx'
 
 
 export class UpdateStores {
@@ -33,10 +33,5 @@ export class UpdateStores {
             console.log(this.last);
         }
     }
-
-    // handleInput = ( {target} ) =>{
-    //     this[target.name] = target.value
-    //     console.log(this.owner);
-    // }
 
 }

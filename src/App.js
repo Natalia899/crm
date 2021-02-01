@@ -11,15 +11,10 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 export default function App() {
   return (
     <Router>
-      <div className="App">
       <NavBar />
       <Route path="/" exact render={() => <Clients />} />
       <Route path="/actions" exact render={() => <Actions />} />
       <Route path="/analytics" exact render={() => <Analytics />} />
-
-
-
-      </div>
     </Router>
   );
 }

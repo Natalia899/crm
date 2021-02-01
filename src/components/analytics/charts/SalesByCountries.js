@@ -6,7 +6,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'rec
 const SalesByCountries = inject("CRMStores", "UpdateStores")(observer((props) => {
 console.log('hiii');
     return (
-        <div className='countriesChart'> <h5>Sales By Countries </h5>
+        <div className='chart'> <h5>Sales By Countries </h5>
         <BarChart width={530} height={250} data={props.CRMStores.chartsData.countries}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="category" />

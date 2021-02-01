@@ -9,8 +9,6 @@ export class CRMStores {
         this.emailTypes = []
         this.chartsData = []
 
-
-
         makeObservable(this, {
             clients: observable,
             owners: observable,

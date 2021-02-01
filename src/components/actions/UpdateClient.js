@@ -28,24 +28,27 @@ const UpdateClient = inject("CRMStores", "UpdateStores")(observer((props) => {
   }
 
   return (
-    <div>
+    <div className='inputsContainer'> <h5>Update The Client:</h5>
       <input name="last" onChange={handleInput} placeholder='name' />
+       <div className='y'>
       <select name='owner' onChange={handleInput} className="dropdown" >
         <option selected hidden>Transfer ownership to:</option>
         {props.CRMStores.owners && props.CRMStores.owners
           .map(owner => <option >{owner.owner}</option>)}
       </select>
       <Button onClick={updateOwner} variant="contained">Transfer</Button>
-
-      <div>
-        <select name='emailType' onChange={handleInput} className="dropdown" >
+      </div>
+      <div className='y'>
+        <select  name='emailType' onChange={handleInput} className="dropdown" >
           <option selected hidden> Send email: </option>
           {props.CRMStores.emailTypes && props.CRMStores.emailTypes
             .map(e => <option >{e.email_type}</option>)}
         </select>
-        <Button onClick={updateEmailType} variant="contained">Send</Button>
+        <Button  onClick={updateEmailType} variant="contained">Send</Button>
       </div>
+      <div className='y'>
       <Button onClick={updateSold} variant="contained">Declare sold</Button>
+      </div>
     </div>
   )
 }))

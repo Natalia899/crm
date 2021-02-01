@@ -4,11 +4,13 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     root: {
         flexGrow: 1,
+        backgroundColor: '#e0e0e0',
+        fontWeight: 'bold',
     
     },
 });

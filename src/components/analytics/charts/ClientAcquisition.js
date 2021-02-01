@@ -16,7 +16,7 @@ function ClientPie() {
     };
 
     return (
-        <div>
+        <div className='chart'>
             <h5>Client Acquisition</h5>
             <Pie data={data} />
         </div>

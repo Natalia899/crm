@@ -1,9 +1,64 @@
+
+
+
+body {
+  background-color: rgb(248, 249, 250);
+  font-family: 'Montserrat', sans-serif;
+}
+
+.findClient {
+  margin-left: 20%;
+  
+}
+
+.actionsContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5%;
+ 
+}
+select {
+ display: grid; 
+
+}
+
+.y {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+ margin-top: 4%;
+  gap: 4%;
+}
+
+
+.inputsContainer {
+  padding: 7%;
+  margin: 13%;
+  margin-right: 0;
+  border: 2px solid rgb(108, 117, 125);
+  border-radius: 15px;
+  max-width: 65%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .budges {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  color:rgb(108, 117, 125);
 }
 
 .budge {
   display: grid;
   justify-items: center;
+  padding: 10%;
 }
+
+.charts{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  color:rgb(108, 117, 125);
+}
+
+.chart{
+  margin: 10%;
+}
+

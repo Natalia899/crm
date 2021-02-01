@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { inject, observer } from 'mobx-react'
-
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Table, Paper, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
 
-
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: '#cfd8dc',
+    color: '#263238',
+    fontSize: 18,
   },
   body: {
     fontSize: 14,
@@ -33,16 +32,10 @@ const useStyles = makeStyles({
   },
 });
 
-
-
-
-
-
 const Clients = inject("CRMStores")(observer((props) => {
 
   const [relevantClients, setRelevantClients] = useState([...props.CRMStores.clients])
   const [input, setInput] = useState('')
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,11 +46,6 @@ const Clients = inject("CRMStores")(observer((props) => {
     fetchData()
   }, [])
 
-
-
-
-  // not working on input delete
-
   useEffect(() => {
     let tempList = props.CRMStores.clients.filter(c => {
       return c.last.toLowerCase().includes(input.toLowerCase())
@@ -67,17 +55,10 @@ const Clients = inject("CRMStores")(observer((props) => {
 
   const handleChange = (event) => setInput(event.target.value)
 
-
-  //props.CRMStores.clients.length
-
   const rows = relevantClients && relevantClients.map(c => {
     return (createData(
       c.last, c.first, c.country, c.date, c.email, c.sold, c.owner))
   })
-  // const rows = props.CRMStores.clients.length && props.CRMStores.clients.map(c => {
-  //   return (createData(
-  //     c.last, c.first, c.country, c.date, c.email, c.sold, c.owner))
-  // })
 
   const classes = useStyles();
   return (
@@ -99,13 +80,13 @@ const Clients = inject("CRMStores")(observer((props) => {
           <TableBody>
             {rows.length && rows.map((row) => (
               <StyledTableRow >
-                <StyledTableCell align="left">{row.surname}</StyledTableCell>
-                <StyledTableCell align="left">{row.name}</StyledTableCell>
-                <StyledTableCell align="left">{row.country}</StyledTableCell>
-                <StyledTableCell align="left">{row.firstContact}</StyledTableCell>
-                <StyledTableCell align="left">{row.email}</StyledTableCell>
-                <StyledTableCell align="left">{row.sold}</StyledTableCell>
-                <StyledTableCell align="left">{row.owner}</StyledTableCell>
+                <StyledTableCell align="center">{row.surname}</StyledTableCell>
+                <StyledTableCell align="center">{row.name}</StyledTableCell>
+                <StyledTableCell align="center">{row.country}</StyledTableCell>
+                <StyledTableCell align="center">{row.firstContact}</StyledTableCell>
+                <StyledTableCell align="center">{row.email}</StyledTableCell>
+                <StyledTableCell align="center">{row.sold}</StyledTableCell>
+                <StyledTableCell align="center">{row.owner}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
