@@ -14,13 +14,13 @@ Project ScreenShots:
 
   Action page renders two inputs containers for addindg/updating the clients:
 
-  ![Image](readmeScreenShots/CRM-actions.png)
+  ![Image](readmeScreenShots/crm-actions.png)
 
   Analytics page renders badges and charts with the useful and updated data
   in the accessible and clear form:
 
-  ![Image](readmeScreenShots/CRM-budges.png)
-  ![Image](readmeScreenShots/CRM-charts.png)
+  ![Image](readmeScreenShots/crm-budges.png)
+  ![Image](readmeScreenShots/crm-charts.png)
 
 
 
